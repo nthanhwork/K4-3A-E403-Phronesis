@@ -13,12 +13,13 @@
 - **Core JTBD (Không tên sản phẩm/AI trong câu):**
   > *"Giúp người trực hỗ trợ kỹ thuật phát hiện và xử lý kịp thời toàn bộ câu hỏi của người học đang bị bỏ sót trong ca trực mà không phải rà soát thủ công từng dòng tin nhắn."*
 - **Problem statement (KHÔNG chữ AI):**
-  > Kênh thảo luận Discord có quá nhiều tin nhắn trò chuyện lẫn hỏi bài khiến tin nhắn trôi rất nhanh; người trực hỗ trợ phải cuộn chuột thủ công liên tục nhưng vẫn bỏ sót câu hỏi kỹ thuật của người học từ 7 đến 12 tiếng mà không hay biết, khiến người học bế tắc và nản lòng.
+  > Kênh thảo luận Discord có quá nhiều tin nhắn trò chuyện lẫn hỏi bài khiến tin nhắn trôi rất nhanh; người trực hỗ trợ phải cuộn chuột thủ công liên tục nhưng vẫn bỏ sót câu hỏi kỹ thuật của người học từ 7 đến 24 tiếng mà không hay biết, khiến người học bế tắc và nản lòng.
 - **Evidence (Chuẩn A Khảo sát & Chuẩn B Data Mining kiểm chứng được — Log đầy đủ trong repo):**
-  - *Chuẩn A — Khảo sát thực tế ($n = 6$ TA/Lab Coach trực Discord ngày 16/9/2026):*
-    - **83.3% (5/6 TA)** xác nhận mất 15–20 phút mỗi ca trực chỉ để cuộn chuột lội kênh tìm câu hỏi bị trôi.
-    - **Kỷ lục câu hỏi bị tồn đọng:** 12 tiếng (TA 1), 6–10 tiếng (TA 3), và 7 tiếng (TA 5).
-    - **13% – 30%** câu hỏi trong ngày bị trùng lặp nội dung gây ức chế và quá tải.
+  - *Chuẩn A — Khảo sát thực tế ($n = 10$ TA/Lab Coach thực tế ngày 16–17/9/2026):*
+    - **90% (9/10 TA)** xác nhận mất thời gian mỗi ngày chỉ để cuộn chuột lội kênh tìm câu hỏi (thời gian cuộn từ 10 đến 60 phút/ngày, trung bình ~22 phút/ngày).
+    - **Kỷ lục câu hỏi bị tồn đọng:** Lên tới **24 tiếng** (TA mốc 20:29), **12 tiếng** (TA mốc 19:13), **6–10 tiếng** (TA mốc 19:14), **7 tiếng** (TA mốc 19:17 do bị ốm), và **4 tiếng** (TA mốc 10:15).
+    - **Tỷ lệ trùng lặp:** **13% – 50%** (hoặc 20–30 câu hỏi lặp lại/ngày), khiến TA nản lòng dẫn đến xử lý bằng cách *"bỏ qua luôn"* hoặc phải trả lời đi trả lời lại.
+    - **60% (6/10 TA)** sẵn sàng tham gia dùng thử giải pháp mới ngay lập tức.
   - *Chuẩn B — Data Mining thực tế từ `data/discord-pack/k4_messages.csv` (1.092 tin nhắn):*
     - **Tổng số tin nhắn trích xuất:** 1.092 tin nhắn từ ngày 12/9 đến 16/9/2026.
     - **Số câu hỏi kỹ thuật/thủ tục của học viên:** 136 tin nhắn (12.5% tổng lưu lượng).
@@ -32,7 +33,8 @@
     3. *"chào bạn Ngay sau docker compose up -d, OPA chưa lấy được policy bundle từ cvat-server, nên health check báo: OPA service unhealthy. Mình đã kiểm tra network nhưng chưa fix được."* — Học viên D6587 (Tin nhắn `M12802`, lỗi kỹ thuật chờ hỗ trợ)
     4. *"cho mình hỏi một team bao nhiêu bạn ?"* — Học viên D1224 (Tin nhắn `M83358`, câu hỏi trùng lặp sĩ số)
     5. *"Hi, mình vẫn chưa cài được CVAT. Có bạn nào hỗ trợ được mình không?"* — Học viên D5159 (Tin nhắn `M07901`, kêu cứu cài đặt môi trường)
-    6. *"Quá nhiều tin mà phải đọc hết"* & *"Bị trôi tin nhắn"* — TA Khảo sát thực tế dòng 13 & 15.
+    6. *"Quá nhiều tin mà phải đọc hết"* & *"Bị trôi tin nhắn"* — TA Khảo sát thực tế (Timestamp 19:16:20 & 19:18:21)
+    7. *"Khó khăn khi cuộn chuột, nhiều text. Tìm bằng ctrl F nhưng phải cuộn đến gần vùng đó"* & *"Phải lướt thủ công để tìm, lướt bằng tay"* — TA Khảo sát thực tế (Timestamp 19:47:00 & 10:15:35)
 
 ---
 
@@ -41,7 +43,7 @@
 - **Bảng impact ≥3 ứng viên:**
   | Ứng viên tính năng | Bao nhiêu người | Tần suất | Tốn gì mỗi lần | Khả thi | Đánh giá |
   |---|---|---|---|---|---|
-  | **1. Hàng đợi câu hỏi tồn đọng (`/remaining-questions`)** | 10–15 TA / Lab Coach | 5–8 lần/ca trực | 15–20 phút lội kênh/lần, áp lực sót tin 12h | Rất cao (heuristic + LLM filter/cluster) | **CHỌN** |
+  | **1. Hàng đợi câu hỏi tồn đọng (`/remaining-questions`)** | 10–15 TA / Lab Coach | 5–8 lần/ca trực | 15–60 phút lội kênh/ngày, áp lực sót tin 12–24h | Rất cao (heuristic + LLM filter/cluster) | **CHỌN** |
   | **2. Bot tự động trả lời code/lab thay TA** | 1.000 học viên | Hàng ngày | Nguy cơ trả lời sai gây trượt lab, hallucination cao | Thấp (Cost of error cực kỳ nghiêm trọng) | **LOẠI** |
   | **3. Bản tin tổng hợp cuối ngày đăng lên kênh chung** | 10 TA | 1 lần/ngày | Đã có bot cũ nhưng TA không đọc vì không bấm vào xử lý được | Trung bình (Không có tính hành động) | **LOẠI** |
 
@@ -49,7 +51,7 @@
   - *Ứng viên 2 (Auto-reply):* Chi phí sai sót quá lớn (Cost of error cao), học viên có thể nhận hướng dẫn sai làm hỏng môi trường máy; vi phạm nguyên tắc an toàn sư phạm.
   - *Ứng viên 3 (Bản tin cuối ngày):* Chỉ mang tính thông báo một chiều, thiếu tính hành động tức thì, gây rác kênh chung và không giúp TA giải quyết được các ca đang bị kẹt lúc trực.
 - **Ứng viên CHỌN + vì sao (bằng số):**
-  - Chọn **Ứng viên 1 (`/remaining-questions`)** vì giải quyết trực tiếp kỷ lục tồn đọng **12 tiếng** kéo xuống dưới **30 phút**; tiết kiệm trung bình **45–60 phút/ngày** cuộn chuột cho mỗi TA; và có 3 TA sẵn sàng làm Willing Users dùng thử ngay.
+  - Chọn **Ứng viên 1 (`/remaining-questions`)** vì giải quyết trực tiếp kỷ lục tồn đọng **12–24 tiếng** kéo xuống dưới **30 phút**; tiết kiệm trung bình **15–60 phút/ngày** cuộn chuột cho mỗi TA; và có **6/10 TA (60%)** sẵn sàng làm Willing Users dùng thử ngay.
 
 ---
 
@@ -180,9 +182,12 @@
   - **Ngọ Doãn Ngọc:** Xây dựng bộ dữ liệu kiểm thử Golden set (20 case) và thiết kế prompt phân loại / gom cụm cho CP3.
   - **Đoàn Quang Minh:** Chạy kiểm thử đo lường đánh giá prompt, chuẩn bị kịch bản quay video demo CP3 và slide pitch CP5.
 - **Willing users (≥2 tên từ khảo sát thực tế):**
-  1. *TA Khảo sát dòng 12 (Timestamp 19:14:28)* — Xác nhận sẵn sàng dùng thử.
-  2. *TA Khảo sát dòng 13 (Timestamp 19:16:20)* — Xác nhận sẵn sàng dùng thử.
-  3. *TA Khảo sát dòng 14 (Timestamp 19:17:23)* — Xác nhận sẵn sàng dùng thử.
+  1. *TA 1 (Timestamp 16/9 19:14:28):* Tồn đọng 6–10h, mất thời gian research & dò thủ công — Xác nhận sẵn sàng dùng thử.
+  2. *TA 2 (Timestamp 16/9 19:16:20):* Mất 10p cuộn chuột, quá nhiều tin phải đọc hết — Xác nhận sẵn sàng dùng thử.
+  3. *TA 3 (Timestamp 16/9 19:17:23):* Kỷ lục tồn 7h khi ốm, khó nắm bắt tình hình — Xác nhận sẵn sàng dùng thử.
+  4. *TA 4 (Timestamp 16/9 20:29:37):* Kỷ lục tồn 24h, mất 60p cuộn chuột/ngày, 50% câu hỏi trùng lặp — Xác nhận sẵn sàng dùng thử.
+  5. *TA 5 (Timestamp 17/9 10:14:19):* Mất 30–45p cuộn chuột/ngày, đợi load lâu rối mắt — Xác nhận sẵn sàng dùng thử.
+  6. *TA 6 (Timestamp 17/9 10:15:35):* Kỷ lục tồn 4h, mất 15p lướt thủ công bằng tay — Xác nhận sẵn sàng dùng thử.
 - **Multi-prototype:**
   - Phương án A: Xem theo dòng thời gian (FIFO Queue) — Tập trung giải cứu ca tồn lâu nhất.
   - Phương án B: Xem theo phân cụm chủ đề (Clustering) — Tập trung giải quyết dứt điểm các câu hỏi lặp lại.
@@ -194,7 +199,8 @@
 
 | Thời điểm | Đổi gì | Vì sao (Trỏ về feedback / case nào) |
 |---|---|---|
-| 16/9 19:30 | Hoàn thành Canvas CP1 & thu thập khảo sát $n=6$ | Khóa mục tiêu bài toán Track B2 dựa trên nỗi đau thực tế của TA |
+| 16/9 19:30 | Hoàn thành Canvas CP1 & thu thập khảo sát $n=10$ | Khóa mục tiêu bài toán Track B2 dựa trên nỗi đau thực tế của TA |
 | 16/9 20:30 | Tạo `docs/flow.md` và `codebase/prototype/index.html` | Thiết kế luồng 1-Click Jump và bản mock tương tác chuẩn Discord |
 | 16/9 20:45 | Thêm nút Reload và Limit 15 câu/popup | Tránh quá tải thông tin và hỗ trợ TA quét lại dữ liệu realtime |
 | 17/9 10:30 | Cập nhật toàn diện `spec.md` cho CP2 | Bổ sung chi tiết §4, §6, 4 nguyên tắc HAX/PAIR theo yêu cầu CP2 |
+| 17/9 19:45 | Chuẩn hóa số liệu khảo sát $n=10$ (16–17/9) | Đồng bộ kỷ lục tồn 24h, thời gian lội kênh 15–60p, 50% câu trùng, mở rộng 6 Willing Users |
