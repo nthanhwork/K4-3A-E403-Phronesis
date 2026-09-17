@@ -641,7 +641,7 @@
     <div class="message-container" id="messageContainer">
       
       <!-- Real Message 1: T050 Điểm danh (Chờ 8 tiếng) -->
-      <div class="message" id="msg-1">
+      <div class="message" id="msg-khanh-att">
         <div class="avatar avatar-khanh">K</div>
         <div class="msg-body">
           <div class="msg-header">
@@ -655,30 +655,114 @@
         </div>
       </div>
 
-      <!-- Real Message 2: T050 Lỗi Provider Error (Chờ 6 tiếng) -->
-      <div class="message" id="msg-2">
-        <div class="avatar avatar-khanh">K</div>
+      <!-- Real Message 2: D6587 Lỗi Docker Compose OPA (Chờ 5h40p) -->
+      <div class="message" id="msg-opa">
+        <div class="avatar" style="background-color: #3f51b5;">Q</div>
         <div class="msg-body">
           <div class="msg-header">
-            <span class="msg-author">T050-NGUYỄN TUẤN KHANH-02819</span>
-            <span class="msg-time">Hôm qua lúc 00:17 (Chờ 6h30p)</span>
+            <span class="msg-author">D6587 — Nguyễn Hoàng Quân</span>
+            <span class="msg-time">Hôm nay lúc 14:20 (Chờ 5h40p)</span>
           </div>
           <div class="msg-content">
-            Còn trong buổi học thì em có đặt thắc mắc cho 2 anh labcoach. Em hỏi anh Hải DM về việc vì sao case test case lại có một vài test gặp lỗi <span class="mention">provider_error</span>. Một anh labcoach khác thì em hỏi rằng có thể chạy từng test case trong file để khắc phục việc thiếu credit API không. Nhưng đó là ở giữa buổi học nên em không biết có thể coi đây là minh chứng không?
+            chào bạn Ngay sau <span class="mention">docker compose up -d</span>, OPA chưa lấy được policy bundle từ cvat-server, nên health check báo: <strong style="color: #ff7b7d;">OPA service unhealthy</strong>. Mình đã kiểm tra network nhưng chưa fix được, anh chị TA hỗ trợ giúp em với ạ!
           </div>
         </div>
       </div>
 
-      <!-- Real Message 3: T087 Khảo sát kịch bản (Chờ 45 phút) -->
-      <div class="message" id="msg-3">
+      <!-- Real Message 3: D5159 Kêu cứu cài CVAT (Chờ 4h10p) -->
+      <div class="message" id="msg-cvat">
+        <div class="avatar" style="background-color: #ff9800;">H</div>
+        <div class="msg-body">
+          <div class="msg-header">
+            <span class="msg-author">D5159 — Trần Quốc Huy</span>
+            <span class="msg-time">Hôm nay lúc 15:50 (Chờ 4h10p)</span>
+          </div>
+          <div class="msg-content">
+            Hi, mình vẫn chưa cài được CVAT do lỗi docker daemon không start được trên Windows WSL2. Có bạn nào hoặc anh chị TA hỗ trợ được mình không?
+          </div>
+        </div>
+      </div>
+
+      <!-- Real Message 4: T050 Lỗi Provider Error (Chờ 3h30p) -->
+      <div class="message" id="msg-khanh-api">
+        <div class="avatar avatar-khanh">K</div>
+        <div class="msg-body">
+          <div class="msg-header">
+            <span class="msg-author">T050-NGUYỄN TUẤN KHANH-02819</span>
+            <span class="msg-time">Hôm qua lúc 00:17 (Chờ 3h30p)</span>
+          </div>
+          <div class="msg-content">
+            Còn trong buổi học thì em có đặt thắc mắc cho 2 anh labcoach. Em hỏi anh Hải DM về việc vì sao case test case lại có một vài test gặp lỗi <span class="mention">provider_error</span>. Một anh labcoach khác thì em hỏi rằng có thể chạy từng test case trong file để khắc phục việc thiếu credit API không.
+          </div>
+        </div>
+      </div>
+
+      <!-- Real Message 5: D1224 Sĩ số team (Chờ 3h15p) -->
+      <div class="message" id="msg-team">
+        <div class="avatar" style="background-color: #009688;">L</div>
+        <div class="msg-body">
+          <div class="msg-header">
+            <span class="msg-author">D1224 — Lê Bảo Long</span>
+            <span class="msg-time">Hôm nay lúc 16:45 (Chờ 3h15p)</span>
+          </div>
+          <div class="msg-content">
+            cho mình hỏi một team bao nhiêu bạn ? Nếu nhóm em đang có 3 bạn thì BTC có giữ nguyên hay sẽ ghép thêm bạn khác vào ạ?
+          </div>
+        </div>
+      </div>
+
+      <!-- Real Message 6: D3082 Workshop có tính buổi nghỉ không (Chờ 2h45p) -->
+      <div class="message" id="msg-ws">
+        <div class="avatar" style="background-color: #673ab7;">T</div>
+        <div class="msg-body">
+          <div class="msg-header">
+            <span class="msg-author">D3082 — Vũ Minh Trí</span>
+            <span class="msg-time">Hôm nay lúc 17:15 (Chờ 2h45p)</span>
+          </div>
+          <div class="msg-content">
+            A ơi, cho e hỏi, buổi workshop chủ nhật ngày mai thì có tính vào số buổi nghỉ ko ạ? Giả dụ sáng mai e có việc gia đình xin vắng thì có bị trừ điểm chuyên cần không?
+          </div>
+        </div>
+      </div>
+
+      <!-- Real Message 7: T022 Gọi mentor GPU CUDA OOM (Chờ 1h20p) -->
+      <div class="message" id="msg-gpu">
+        <div class="avatar" style="background-color: #f44336;">Đ</div>
+        <div class="msg-body">
+          <div class="msg-header">
+            <span class="msg-author">T022-ĐẶNG TIẾN ĐẠT-02188</span>
+            <span class="msg-time">Hôm nay lúc 18:40 (Chờ 1h20p)</span>
+          </div>
+          <div class="msg-content">
+            alo có anh nào ở phòng E403 không qua bàn dãy 2 check giúp em cái <span class="mention">GPU CUDA out of memory</span> khi load model với ạ, nhóm em đang kẹt không chạy được test!
+          </div>
+        </div>
+      </div>
+
+      <!-- Real Message 8: T087 Khảo sát kịch bản (Chờ 45 phút) -->
+      <div class="message" id="msg-script">
         <div class="avatar avatar-dat">Đ</div>
         <div class="msg-body">
           <div class="msg-header">
             <span class="msg-author">T087-NGUYỄN THỌ ĐẠT-02484</span>
-            <span class="msg-time">Hôm nay lúc 20:19 (Chờ 45p)</span>
+            <span class="msg-time">Hôm nay lúc 19:15 (Chờ 45p)</span>
           </div>
           <div class="msg-content">
             Cho e hỏi ai là biên tập viên/người viết kịch bản video, giảng viên duyệt kịch bản ạ? nhóm e muốn làm khảo sát nhanh.
+          </div>
+        </div>
+      </div>
+
+      <!-- Real Message 9: D7105 Lỗi bước 3 torch (Chờ 30 phút) -->
+      <div class="message" id="msg-step3">
+        <div class="avatar" style="background-color: #00bcd4;">N</div>
+        <div class="msg-body">
+          <div class="msg-header">
+            <span class="msg-author">D7105 — Phạm Hoàng Nam</span>
+            <span class="msg-time">Hôm nay lúc 19:30 (Chờ 30p)</span>
+          </div>
+          <div class="msg-content">
+            em chạy tới bước 3 cài đặt môi trường thì bị lỗi như này ạ: <code style="color:#ff7b7d;">ModuleNotFoundError: No module named 'torch'</code>, nhờ các anh chị TA xem qua giúp em với.
           </div>
         </div>
       </div>
@@ -689,10 +773,24 @@
         <div class="msg-body">
           <div class="msg-header">
             <span class="msg-author" style="color: #23a55a;">Lab Coach — Hải ĐM</span>
-            <span class="msg-time">Hôm nay lúc 20:25</span>
+            <span class="msg-time">Hôm nay lúc 19:45</span>
           </div>
           <div class="msg-content">
-            Chào cả lớp, các nhóm nhớ nộp CP2 trước 21:00 nhé!
+            Chào cả lớp, các nhóm nhớ kiểm tra kỹ các tiêu chí rubric và nộp bài đúng hạn nhé!
+          </div>
+        </div>
+      </div>
+
+      <!-- Simulated User Slash Command Message Trigger -->
+      <div class="message" id="userCommandMsg" style="display: none; background: rgba(88, 101, 242, 0.08); border-left: 3px solid var(--accent);">
+        <div class="avatar" style="background-color: #5865f2;">TA</div>
+        <div class="msg-body">
+          <div class="msg-header">
+            <span class="msg-author" style="color: #5865f2;">Trợ giảng (Bạn)</span>
+            <span class="msg-time" id="userCmdTime">Vừa xong</span>
+          </div>
+          <div class="msg-content">
+            <span class="mention" style="font-weight: bold; font-family: monospace; font-size: 13px; color: #fff; background: var(--accent);">/remaining-questions</span>
           </div>
         </div>
       </div>
@@ -824,23 +922,26 @@
     <!-- Chat Input Area with Simulation Button -->
     <div class="chat-input-area">
       <div class="chat-input-wrapper">
-        <input type="text" id="chatInput" value="/remaining-questions" placeholder="Nhập tin nhắn hoặc lệnh..." readonly>
-        <button class="action-badge" onclick="executeSlashCommand()">
-          ⚡ Chạy lệnh /remaining-questions
+        <input type="text" id="chatInput" value="/remaining-questions" placeholder="Nhập tin nhắn hoặc gõ /remaining-questions..." onkeydown="if(event.key === 'Enter') executeSlashCommand()">
+        <button class="action-badge" onclick="executeSlashCommand()" style="cursor: pointer; background: #5865f2; font-weight: bold; box-shadow: 0 0 12px rgba(88, 101, 242, 0.5);">
+          ⚡ Gửi lệnh /remaining-questions
         </button>
       </div>
     </div>
   </div>
 
   <script>
-    // Mock Data Store: Realistic questions from class Discord
+    // Mock Data Store: Realistic questions from class Discord matching message elements
     const mockQuestions = [
-      { id: 'msg-1', author: 'T050-NGUYỄN TUẤN KHANH', topic: 'attendance', topicName: '📌 Điểm danh & Logistics', title: 'T050-KHANH (MSSV: 2A202602819)', snippet: 'Dạ buổi học tối hôm nay em không nhớ mình đã điểm danh ra về chưa...', time: 'Hôm qua lúc 00:06 (Chờ 8h15p)', badge: '⏳ Tồn 8h15p', badgeClass: 'badge-urgent' },
-      { id: 'msg-2', author: 'T050-NGUYỄN TUẤN KHANH', topic: 'tech', topicName: '⚙️ Lỗi Kỹ thuật / Lab', title: 'T050-KHANH (Lỗi API Provider)', snippet: 'Em hỏi anh Hải DM về việc vì sao case test case lại có một vài test gặp lỗi provider_error...', time: 'Hôm qua lúc 00:17 (Chờ 6h30p)', badge: '⏳ Tồn 6h30p', badgeClass: 'badge-medium' },
-      { id: 'msg-3', author: 'T087-NGUYỄN THỌ ĐẠT', topic: 'survey', topicName: '👥 Khảo sát Hackathon', title: 'T087-NGUYỄN THỌ ĐẠT (Khảo sát kịch bản)', snippet: 'Cho e hỏi ai là biên tập viên/người viết kịch bản video, giảng viên duyệt kịch bản ạ?...', time: 'Hôm nay lúc 20:19 (Chờ 45p)', badge: '⏳ Tồn 45p', badgeClass: 'badge-low' },
-      { id: 'msg-1', author: 'T152-ĐÀO NGỌC BÌNH THIÊN', topic: 'tech', topicName: '⚙️ Lỗi Kỹ thuật / Lab', title: 'T152-THIÊN (Cần Mentor hỗ trợ)', snippet: 'Anh ơi tới zone 2 giúp em với, nhóm em gặp lỗi conflict khi merge git...', time: 'Hôm nay lúc 19:54 (Chờ 35p)', badge: '⏳ Tồn 35p', badgeClass: 'badge-low' },
-      { id: 'msg-2', author: 'T012-TRẦN VĂN AN', topic: 'tech', topicName: '⚙️ Lỗi Kỹ thuật / Lab', title: 'T012-AN (Lỗi Docker Compose)', snippet: 'Container không bind được port 8000 do bị chiếm dụng, sửa thế nào ạ?', time: 'Hôm nay lúc 19:40 (Chờ 50p)', badge: '⏳ Tồn 50p', badgeClass: 'badge-low' },
-      { id: 'msg-1', author: 'T099-LÊ THỊ MAI', topic: 'attendance', topicName: '📌 Điểm danh & Logistics', title: 'T099-MAI (Link nộp bài CP1)', snippet: 'Cho em xin lại link form nộp Checkpoint 1 với ạ, em tìm trên kênh thông báo chưa thấy', time: 'Hôm nay lúc 19:15 (Chờ 1h15p)', badge: '⏳ Tồn 1h15p', badgeClass: 'badge-medium' }
+      { id: 'msg-khanh-att', author: 'T050-NGUYỄN TUẤN KHANH', topic: 'attendance', topicName: '📌 Logistics & Chuyên cần', title: 'T050-KHANH (MSSV: 2A202602819)', snippet: 'Dạ buổi học tối hôm nay em không nhớ mình đã điểm danh ra về chưa...', time: 'Hôm qua lúc 00:06 (Chờ 8h15p)', badge: '⏳ Tồn 8h15p', badgeClass: 'badge-urgent' },
+      { id: 'msg-opa', author: 'D6587 — Nguyễn Hoàng Quân', topic: 'tech', topicName: '⚙️ Kỹ thuật & Bài Lab', title: 'D6587 (Lỗi Docker Compose OPA)', snippet: 'Ngay sau docker compose up -d, OPA chưa lấy được policy bundle...', time: 'Hôm nay lúc 14:20 (Chờ 5h40p)', badge: '⏳ Tồn 5h40p', badgeClass: 'badge-urgent' },
+      { id: 'msg-cvat', author: 'D5159 — Trần Quốc Huy', topic: 'tech', topicName: '⚙️ Kỹ thuật & Bài Lab', title: 'D5159 (Không cài được CVAT WSL2)', snippet: 'Hi, mình vẫn chưa cài được CVAT do lỗi docker daemon không start được...', time: 'Hôm nay lúc 15:50 (Chờ 4h10p)', badge: '⏳ Tồn 4h10p', badgeClass: 'badge-urgent' },
+      { id: 'msg-khanh-api', author: 'T050-NGUYỄN TUẤN KHANH', topic: 'tech', topicName: '⚙️ Kỹ thuật & Bài Lab', title: 'T050-KHANH (Lỗi API Provider & Credit)', snippet: 'Em hỏi anh Hải DM về việc vì sao case test case lại có một vài test gặp lỗi provider_error...', time: 'Hôm qua lúc 00:17 (Chờ 3h30p)', badge: '⏳ Tồn 3h30p', badgeClass: 'badge-medium' },
+      { id: 'msg-team', author: 'D1224 — Lê Bảo Long', topic: 'survey', topicName: '👥 Khảo sát & Nhóm', title: 'D1224 (Quy định sĩ số thành viên team)', snippet: 'cho mình hỏi một team bao nhiêu bạn ? Nếu nhóm em đang có 3 bạn thì...', time: 'Hôm nay lúc 16:45 (Chờ 3h15p)', badge: '⏳ Tồn 3h15p', badgeClass: 'badge-low' },
+      { id: 'msg-ws', author: 'D3082 — Vũ Minh Trí', topic: 'attendance', topicName: '📌 Logistics & Chuyên cần', title: 'D3082 (Quy chế nghỉ buổi Workshop)', snippet: 'A ơi, cho e hỏi, buổi workshop chủ nhật ngày mai thì có tính vào số buổi nghỉ ko ạ?...', time: 'Hôm nay lúc 17:15 (Chờ 2h45p)', badge: '⏳ Tồn 2h45p', badgeClass: 'badge-medium' },
+      { id: 'msg-gpu', author: 'T022-ĐẶNG TIẾN ĐẠT', topic: 'tech', topicName: '⚙️ Kỹ thuật & Bài Lab', title: 'T022-ĐẠT (Lỗi GPU CUDA Out of Memory)', snippet: 'alo có anh nào ở phòng E403 không qua bàn dãy 2 check giúp em CUDA OOM...', time: 'Hôm nay lúc 18:40 (Chờ 1h20p)', badge: '⏳ Tồn 1h20p', badgeClass: 'badge-urgent' },
+      { id: 'msg-script', author: 'T087-NGUYỄN THỌ ĐẠT', topic: 'survey', topicName: '👥 Khảo sát & Nhóm', title: 'T087-ĐẠT (Hỏi người duyệt kịch bản video)', snippet: 'Cho e hỏi ai là biên tập viên/người viết kịch bản video, giảng viên duyệt kịch bản ạ?...', time: 'Hôm nay lúc 19:15 (Chờ 45p)', badge: '⏳ Tồn 45p', badgeClass: 'badge-low' },
+      { id: 'msg-step3', author: 'D7105 — Phạm Hoàng Nam', topic: 'tech', topicName: '⚙️ Kỹ thuật & Bài Lab', title: 'D7105 (Lỗi bước 3 No module torch)', snippet: 'em chạy tới bước 3 cài đặt môi trường thì bị lỗi No module named torch...', time: 'Hôm nay lúc 19:30 (Chờ 30p)', badge: '⏳ Tồn 30p', badgeClass: 'badge-medium' }
     ];
 
     let currentLimit = 15;
@@ -1138,19 +1239,34 @@
         targetElement.classList.remove('highlighted');
         void targetElement.offsetWidth;
         targetElement.classList.add('highlighted');
-        showToast(`📍 Đã nhảy đến câu hỏi của ${authorName} để TA trả lời!`);
+        showToast(`📍 Đã điều hướng đến câu hỏi của ${authorName}!`);
+      } else {
+        showToast(`⚠️ Đã chọn câu hỏi của: ${authorName}`);
       }
     }
 
     // 8. Execute Slash Command
     function executeSlashCommand() {
+      // 1. Hiển thị tin nhắn thực thi lệnh của TA
+      const userCmd = document.getElementById('userCommandMsg');
+      userCmd.style.display = 'flex';
+      const now = new Date();
+      document.getElementById('userCmdTime').innerText = now.toLocaleTimeString('vi-VN');
+
       const botResponse = document.getElementById('botResponse');
-      botResponse.style.display = 'flex';
-      renderTimeView();
+      botResponse.style.display = 'none';
 
       const container = document.getElementById('messageContainer');
       container.scrollTop = container.scrollHeight;
-      showToast("🤖 Bot đã quét tin nhắn trong 12h và trả về danh sách!");
+
+      showToast("⏳ Bot đang quét tin nhắn 12h qua và phân loại bằng AI...");
+
+      setTimeout(() => {
+        botResponse.style.display = 'flex';
+        renderTimeView();
+        container.scrollTop = container.scrollHeight;
+        showToast("✅ Đã phát hiện 9 câu hỏi tồn đọng! Bấm chọn câu hỏi để điều hướng.");
+      }, 400);
     }
 
     // Toast helper
@@ -1164,9 +1280,10 @@
       }, 2500);
     }
 
-    // Auto trigger command on initial load
+    // Khởi động trang: Cuộn xuống cuối kênh chat, sẵn sàng để người dùng gõ lệnh
     window.onload = function() {
-      setTimeout(executeSlashCommand, 500);
+      const container = document.getElementById('messageContainer');
+      container.scrollTop = container.scrollHeight;
     };
   </script>
 </body>

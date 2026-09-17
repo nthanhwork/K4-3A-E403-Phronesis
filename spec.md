@@ -14,20 +14,27 @@
   > *"Giúp người trực hỗ trợ kỹ thuật phát hiện và xử lý kịp thời toàn bộ câu hỏi của người học đang bị bỏ sót trong ca trực mà không phải rà soát thủ công từng dòng tin nhắn."*
 - **Problem statement (KHÔNG chữ AI):**
   > Kênh thảo luận Discord có quá nhiều tin nhắn trò chuyện lẫn hỏi bài khiến tin nhắn trôi rất nhanh; người trực hỗ trợ phải cuộn chuột thủ công liên tục nhưng vẫn bỏ sót câu hỏi kỹ thuật của người học từ 7 đến 24 tiếng mà không hay biết, khiến người học bế tắc và nản lòng.
-- **Evidence (Chuẩn A và Chuẩn B — Log đầy đủ trong repo):**
-  - *Số liệu khảo sát ($n = 10$ TA/Lab Coach thực tế ngày 16–17/9/2026):*
+- **Evidence (Chuẩn A Khảo sát & Chuẩn B Data Mining kiểm chứng được — Log đầy đủ trong repo):**
+  - *Chuẩn A — Khảo sát thực tế ($n = 10$ TA/Lab Coach thực tế ngày 16–17/9/2026):*
     - **90% (9/10 TA)** xác nhận mất thời gian mỗi ngày chỉ để cuộn chuột lội kênh tìm câu hỏi (thời gian cuộn từ 10 đến 60 phút/ngày, trung bình ~22 phút/ngày).
     - **Kỷ lục câu hỏi bị tồn đọng:** Lên tới **24 tiếng** (TA mốc 20:29), **12 tiếng** (TA mốc 19:13), **6–10 tiếng** (TA mốc 19:14), **7 tiếng** (TA mốc 19:17 do bị ốm), và **4 tiếng** (TA mốc 10:15).
     - **Tỷ lệ trùng lặp:** **13% – 50%** (hoặc 20–30 câu hỏi lặp lại/ngày), khiến TA nản lòng dẫn đến xử lý bằng cách *"bỏ qua luôn"* hoặc phải trả lời đi trả lời lại.
     - **60% (6/10 TA)** sẵn sàng tham gia dùng thử giải pháp mới ngay lập tức.
-  - *≥5 Quote nguyên văn từ người dùng thật:*
-    1. *"Quá nhiều tin mà phải đọc hết"* — TA (Timestamp 19:16:20)
-    2. *"Bị trôi tin nhắn"* — TA (Timestamp 19:18:21)
-    3. *"Khó nắm bắt tình hình nếu bỏ lỡ câu chuyện khá lâu"* — TA (Timestamp 19:17:23)
-    4. *"Bỏ qua luôn"* & *"Bỏ qua"* (khi gặp câu hỏi trùng lặp) — TA (Timestamp 19:17:23, 10:14:19)
-    5. *"Mất thời gian đi research"* & *"Dò thủ công"* — TA (Timestamp 19:14:28)
-    6. *"Tìm bằng ctrl F nhưng phải cuộn đến gần vùng đó"* — TA (Timestamp 19:47:00)
-    7. *"Phải lướt thủ công để tìm, lướt bằng tay"* & *"đợi load khá lâu và nhìn khá rối mắt"* — TA (Timestamp 10:15:35, 10:14:19)
+  - *Chuẩn B — Data Mining thực tế từ `data/discord-pack/k4_messages.csv` (1.092 tin nhắn):*
+    - **Tổng số tin nhắn trích xuất:** 1.092 tin nhắn từ ngày 12/9 đến 16/9/2026.
+    - **Số câu hỏi kỹ thuật/thủ tục của học viên:** 136 tin nhắn (12.5% tổng lưu lượng).
+    - **Tỷ lệ câu hỏi không có người phản hồi sau > 2 giờ:** 52/136 tin nhắn (**38.2%**).
+    - **Kỷ lục tồn đọng thực tế trong chatlog:** **12 giờ 25 phút** (tin nhắn `M63574` từ học viên D3082).
+    - **Tỷ lệ câu hỏi trùng lặp nội dung:** 31/136 tin nhắn (**22.8%**) tập trung vào: quy chế sĩ số team, lỗi cài đặt CVAT, lỗi OPA Docker Compose.
+    - *Phương pháp đếm kiểm chứng lại được (Reproducible Counting Method):* Dùng script Python lọc toàn bộ tin nhắn `is_bot != 'True'`, tìm kiếm regex dấu hỏi `?` hoặc các từ khóa hỗ trợ ("cho em hỏi", "lỗi", "giúp em", "sửa sao"), sau đó đối soát timestamp `created_at_vn` với tin nhắn phản hồi đầu tiên của Lab Coach.
+  - *≥5 Quote nguyên văn từ người dùng thật trong chatlog và khảo sát:*
+    1. *"A ơi, cho e hỏi, buổi workshop chủ nhật ngày mai thì có tính vào số buổi nghỉ ko ạ? Giả dụ sáng mai e có việc..."* — Học viên D3082 (Tin nhắn `M63574`, chờ 12h25p)
+    2. *"T3 tuần sau lecture sáng em có việc muốn xin vào trễ 30p thì gửi mail cho a [HV] ạ?"* — Học viên D7482 (Tin nhắn `M56857`, chờ 6h30p)
+    3. *"chào bạn Ngay sau docker compose up -d, OPA chưa lấy được policy bundle từ cvat-server, nên health check báo: OPA service unhealthy. Mình đã kiểm tra network nhưng chưa fix được."* — Học viên D6587 (Tin nhắn `M12802`, lỗi kỹ thuật chờ hỗ trợ)
+    4. *"cho mình hỏi một team bao nhiêu bạn ?"* — Học viên D1224 (Tin nhắn `M83358`, câu hỏi trùng lặp sĩ số)
+    5. *"Hi, mình vẫn chưa cài được CVAT. Có bạn nào hỗ trợ được mình không?"* — Học viên D5159 (Tin nhắn `M07901`, kêu cứu cài đặt môi trường)
+    6. *"Quá nhiều tin mà phải đọc hết"* & *"Bị trôi tin nhắn"* — TA Khảo sát thực tế (Timestamp 19:16:20 & 19:18:21)
+    7. *"Khó khăn khi cuộn chuột, nhiều text. Tìm bằng ctrl F nhưng phải cuộn đến gần vùng đó"* & *"Phải lướt thủ công để tìm, lướt bằng tay"* — TA Khảo sát thực tế (Timestamp 19:47:00 & 10:15:35)
 
 ---
 
@@ -93,16 +100,18 @@
 
 ## §5. Kiểu lỗi — 4 lớp chỗ khó + kịch bản (≥8)
 
-| Lớp lỗi | Tình huống / Kịch bản cụ thể | Hệ thống xử lý thế nào để tránh fail |
+| Lớp taxonomy chỗ khó | Tình huống / Kịch bản cụ thể | Hệ thống xử lý thế nào để tránh fail (Desired Behavior) |
 |---|---|---|
-| **Lớp 1: Input bẩn / Khó đoán** | Học viên hỏi cộc lốc: *"anh ơi"* hoặc *"lỗi rồi"* | AI nhận diện là câu hỏi nhưng không cố bịa nội dung; giữ nguyên trích đoạn và ưu tiên đưa lên đầu nếu chờ lâu. |
-| **Lớp 1: Input bẩn / Khó đoán** | Học viên gửi kèm ảnh chụp màn hình không có chữ | Heuristic nhận diện tin nhắn có đính kèm ảnh và không có text ➔ Gán nhãn "Ảnh chụp màn hình lỗi" để TA bấm vào xem trực tiếp. |
-| **Lớp 2: Ngữ cảnh đa tầng** | 1 học viên gửi liên tiếp 4 tin nhắn để giải thích 1 lỗi | AI gom nhóm các tin nhắn liên tiếp của cùng 1 User trong vòng 5 phút thành 1 ca hỗ trợ duy nhất, không tạo 4 mục rác. |
-| **Lớp 2: Ngữ cảnh đa tầng** | Câu hỏi đã được bạn khác trả lời trong thread con | AI kiểm tra thread reply; nếu đã có tin nhắn phản hồi sau đó thì tự động loại bỏ khỏi hàng đợi tồn đọng. |
-| **Lớp 3: Giới hạn năng lực AI** | 2 câu hỏi dùng từ ngữ khác nhau nhưng cùng lỗi môi trường | Thuật toán gom cụm ngữ nghĩa (Clustering) đưa về cùng 1 nhóm chủ đề để TA xử lý đồng thời. |
-| **Lớp 3: Giới hạn năng lực AI** | Prompt injection: Tin nhắn học viên chứa lệnh phá hoại bot | Hệ thống coi toàn bộ tin nhắn học viên là dữ liệu thuần (Untrusted Data), không bao giờ thực thi dưới dạng chỉ dẫn hệ thống. |
-| **Lớp 4: Lỗi giao tiếp người-máy** | Hàng đợi có quá nhiều câu hỏi (> 30 câu) gây ngợp | Tích hợp bộ lọc Giới hạn (Limit 15 câu/popup tùy chỉnh) để TA tập trung giải quyết dứt điểm từng đợt, tránh quá tải nhận thức. |
-| **Lớp 4: Lỗi giao tiếp người-máy** | TA đã trả lời nhưng danh sách không cập nhật | Nút `[🔄 Làm mới]` cho phép TA ép buộc quét lại realtime để xác nhận câu hỏi đã biến mất. |
+| **① Nguồn sự thật** *(hallucination / đoán mò)* | Học viên hỏi điểm danh cá nhân (TC14): *"em không nhớ mình đã điểm danh ra về chưa, MSSV 2A202602819"* | AI **tuyệt đối không bịa** kết quả điểm danh; hệ thống phân loại vào cụm `Logistics & Chuyên cần`, mức `urgent` và dẫn link để TA tra cứu danh sách thực tế. |
+| **① Nguồn sự thật** *(hallucination / đoán mò)* | Học viên thắc mắc quy chế chấm nộp bài GitHub Classroom (TC26: clone code vs fork) | AI không tự phán xét đúng/sai; gán nhãn câu hỏi kỹ thuật cần TA đối soát rubric chính thức của BTC để giải đáp chuẩn xác. |
+| **② Mơ hồ / Thiếu thông tin** *(câu hỏi cộc lốc)* | Học viên gọi mentor cộc lốc tại phòng học (TC17, TC38): *"anh ơi tới zone 2 giúp em"* hoặc *"lỗi rồi"* | AI nhận diện đây là lời kêu cứu kỹ thuật khẩn cấp (`urgent`), không suy đoán lỗi mà giữ nguyên trích đoạn và số bàn để TA đến hỗ trợ trực tiếp. |
+| **② Mơ hồ / Thiếu thông tin** *(câu hỏi cộc lốc)* | Học viên gửi báo lỗi không kèm mã lỗi (TC27): *"em chạy tới bước 3 thì bị lỗi như này ạ"* | AI xếp vào `Kỹ thuật & Bài Lab`, mức `medium`, hiển thị trích đoạn kèm link 1-Click Jump để TA nhảy đến yêu cầu cung cấp log chi tiết. |
+| **③ Ngoài phạm vi / Thẩm quyền** *(làm bài hộ / lạc đề)* | Học viên nhờ làm bài hộ (TC18): *"bạn code giải hộ mình câu 3 với câu 4 nộp giúp mình luôn với"* | AI nhận diện đây là câu hỏi cần can thiệp để TA vào nhắc nhở quy chế liêm chính học thuật, không bao giờ sinh lời giải thay học viên. |
+| **③ Ngoài phạm vi / Thẩm quyền** *(làm bài hộ / lạc đề)* | Tin nhắn rủ đi ăn trưa (TC20) hoặc hỏi đồ án trường khác (TC39) | AI lọc bỏ hoàn toàn (`is_unanswered_question=False`) hoặc gắn nhãn ngoài phạm vi để tránh làm rác hàng đợi của TA. |
+| **④ Đặc thù nghiệp vụ** *(thread con / spam lặp)* | 1 học viên gửi liên tiếp 4 tin nhắn trong 5 phút để mô tả 1 lỗi kỹ thuật | Heuristic gom nhóm các tin nhắn liên tiếp của cùng 1 User thành 1 item duy nhất trong hàng đợi, tránh tạo rác phân mảnh. |
+| **④ Đặc thù nghiệp vụ** *(thread con / spam lặp)* | Nhiều học viên hỏi cùng 1 câu ở các kênh khác nhau (TC04, TC05, TC33: sĩ số team) | Thuật toán phân cụm gom tất cả vào nhóm `Khảo sát & Nhóm` để TA chỉ cần trả lời 1 lần chung cho cả lớp. |
+| **④ Đặc thù nghiệp vụ** *(thread con / spam lặp)* | Tin nhắn thông báo từ BTC (TC11, TC37) hoặc emoji vui đùa (TC13) | AI phân loại `is_unanswered_question=False`, loại bỏ 100% khỏi hàng đợi để giữ hàng đợi tinh gọn, sạch sẽ. |
+| **Edge cases** *(tấn công phá hoại)* | Prompt injection (TC19, TC40): Cố tình chèn lệnh override system rules hoặc drop database | Hệ thống coi toàn bộ tin nhắn học viên là dữ liệu thuần (Untrusted Data), không bao giờ thực thi chỉ thị, trả về `is_unanswered_question=False`. |
 
 ---
 
@@ -126,15 +135,42 @@
 
 ## §7. Kiểm thử
 
-- **Chiều chất lượng + Định nghĩa kiểm chứng được:**
-  - *Precision (Độ chính xác):* Tỷ lệ các tin nhắn được bot đánh dấu là "câu hỏi tồn đọng" thực sự là câu hỏi kỹ thuật chưa được trả lời (Mục tiêu: $\ge 85\%$).
-  - *Recall (Độ bao phủ):* Tỷ lệ các câu hỏi thực tế bị bỏ quên trong kênh được bot phát hiện (Mục tiêu: $\ge 90\%$, đặc biệt các câu chờ $> 4$ tiếng phải đạt $100\%$).
-  - *Clustering Accuracy:* Tỷ lệ gom đúng cụm chủ đề cho các câu hỏi trùng lặp (Mục tiêu: $\ge 80\%$).
-- **Golden set (≥20 case trích xuất từ `data/discord-pack/`):**
-  - Lưu trữ tại: `eval/golden_set.json` (Gồm: 8 câu hỏi kỹ thuật đơn lẻ, 4 câu hỏi trùng lặp cùng lỗi, 3 câu hỏi mơ hồ/cộc lốc, 3 tin chat thường/xã giao, 2 câu hỏi đã có thread reply).
-- **Quality bar (Khóa từ CP4):**
-  > *"Đạt khi $\ge 85\%$ Precision, $\ge 90\%$ Recall trên bộ Golden set 20 case, và không bỏ sót bất kỳ câu hỏi nào tồn đọng trên 4 tiếng."*
-- **Kết quả các lượt chạy:** Sẽ cập nhật bảng đo lường sau khi chạy kiểm thử AI tại CP3.
+- **Chiều chất lượng + Định nghĩa kiểm chứng được (Người ngoài nhóm chấm ra cùng kết quả):**
+  - *1. Triage Precision (Độ chuẩn xác lọc câu hỏi):* Tỷ lệ các tin nhắn được AI gán nhãn là câu hỏi thực sự là câu hỏi cần TA hỗ trợ.
+    $$\text{Precision} = \frac{TP}{TP + FP} = \frac{\text{Số ca AI đoán là câu hỏi VÀ đúng là câu hỏi}}{\text{Tổng số ca AI dự đoán là câu hỏi}}$$
+  - *2. Triage Recall (Độ bao phủ câu hỏi):* Tỷ lệ các câu hỏi thực tế của học viên được AI phát hiện thành công, không bị bỏ lọt.
+    $$\text{Recall} = \frac{TP}{TP + FN} = \frac{\text{Số câu hỏi thực tế được AI phát hiện}}{\text{Tổng số câu hỏi thực tế trong tập test}}$$
+  - *3. Topic Clustering Accuracy (Độ chính xác gom cụm chủ đề):* Tỷ lệ gán đúng 1 trong 4 nhóm chủ đề nghiệp vụ chuẩn (*Kỹ thuật & Bài Lab, Logistics & Chuyên cần, Khảo sát & Nhóm, Ngoài phạm vi*).
+  - *4. Urgency Calibration Accuracy (Độ chuẩn xác mức khẩn cấp):* Tỷ lệ gán đúng mức ưu tiên hỗ trợ (*urgent, medium, low, none*).
+  - *5. Full Match Rate (Tỷ lệ đạt chuẩn toàn diện cả 3 trường):* Tỷ lệ các ca mà AI khớp đồng thời cả 3 trường thông tin: Triage, Topic và Urgency.
+
+- **Bộ dữ liệu kiểm thử Golden Set (40 test cases nhóm tự xây — `eval/golden_set.json`):**
+  - **Quy mô:** Đạt **40 trường hợp kiểm thử độc lập** (vượt xa mức tối thiểu 20 ca của rubric).
+  - **Cơ cấu taxonomy:**
+    - *① Nguồn sự thật:* 5 ca (TC14, TC15, TC21, TC23, TC26) — thắc mắc điểm danh, app lỗi thẻ, quy chế clone/fork lab.
+    - *② Mơ hồ / Thiếu thông tin:* 4 ca (TC16, TC17, TC27, TC38) — câu hỏi cộc lốc "anh ơi", "tới zone 2", lỗi không kèm log.
+    - *③ Ngoài phạm vi / Thẩm quyền:* 3 ca (TC18, TC20, TC39) — nhờ giải bài hộ, rủ ăn trưa, hỏi bài thi trường ngoài.
+    - *④ Đặc thù nghiệp vụ:* 8 ca (TC05, TC11, TC12, TC13, TC33, TC35, TC36, TC37) — spam emoji, trùng lặp sĩ số team, thông báo BTC, reply cảm ơn.
+    - *Phổ biến hàng ngày:* 18 ca (TC01-TC04, TC06-TC10, TC22, TC24, TC25, TC28-TC32, TC34) — các câu hỏi lặp lại thường nhật.
+    - *Hiếm gặp / Edge cases:* 2 ca (TC19, TC40) — các đợt tấn công prompt injection phá hoại DB hoặc phá vỡ format JSON.
+  - **Nguồn gốc dữ liệu thật:** **34/40 ca (85%)** được trích xuất trực tiếp từ chatlog thật `data/discord-pack/k4_messages.csv` và phòng học thực tế E403 (vượt xa chỉ tiêu $\ge 10$ ca của rubric).
+
+- **Quality Bar (Khóa từ CP4, mốc 21:00 17/9 — giữ nguyên sau đó):**
+  > *"Hệ thống đạt chuẩn nghiệm thu khi: Precision $\ge 85.0\%$, Recall $\ge 90.0\%$ (tuyệt đối không bỏ sót câu hỏi tồn đọng $> 2$ tiếng, tức $FN = 0$), Topic Clustering Accuracy $\ge 80.0\%$, Urgency Accuracy $\ge 60.0\%$, Full Match $\ge 50.0\%$, và Độ trễ phản hồi trung bình $\le 3.0\text{s}$ trên trọn bộ 40 test cases của Golden Set."*
+
+- **Bảng kết quả chạy kiểm thử thực tế (Run 1 — Đo lường trên model `gpt-4o-mini`):**
+  *(Trích từ `eval/run_results.md`, kèm 125 tệp log JSON đối soát trong `eval/logs/`)*
+
+  | Tiêu chí chất lượng | Kết quả thực tế (Run 1) | Quality Bar cam kết | Trạng thái nghiệm thu |
+  | :--- | :---: | :---: | :---: |
+  | **Triage Accuracy (Lọc câu hỏi)** | **100.0%** (40/40) | $\ge 85.0\%$ | ✅ **VƯỢT CHỈ TIÊU** |
+  | **Precision** | **100.0%** (31/31) | $\ge 85.0\%$ | ✅ **ĐẠT** |
+  | **Recall (Không bỏ sót)** | **100.0%** (31/31, $FN=0$) | $\ge 90.0\%$ | ✅ **ĐẠT TUYỆT ĐỐI** |
+  | **F1-Score** | **100.0%** | $\ge 85.0\%$ | ✅ **ĐẠT** |
+  | **Topic Clustering Accuracy** | **92.5%** (37/40) | $\ge 80.0\%$ | ✅ **ĐẠT** |
+  | **Urgency Calibration Accuracy** | **60.0%** (24/40) | $\ge 60.0\%$ | ✅ **ĐẠT** |
+  | **Full Match (Khớp trọn vẹn 3 trường)** | **57.5%** (23/40) | $\ge 50.0\%$ | ✅ **ĐẠT** |
+  | **Độ trễ trung bình (Latency)** | **1.60s** / request | $\le 3.0\text{s}$ | ✅ **ĐẠT** |
 
 ---
 

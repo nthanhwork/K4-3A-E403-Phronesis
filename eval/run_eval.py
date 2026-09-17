@@ -177,7 +177,7 @@ def generate_markdown_report(results, metrics):
     lines.append(f"| **Thực tế: Là câu hỏi cần TA** | **TP = {metrics['tp']}** | **FN = {metrics['fn']}** |")
     lines.append(f"| **Thực tế: Không cần TA** | **FP = {metrics['fp']}** | **TN = {metrics['tn']}** |\n")
 
-    lines.append("### 3. Bảng Kết quả Chi tiết 20 Test Cases\n")
+    lines.append(f"### 3. Bảng Kết quả Chi tiết {metrics['total_cases']} Test Cases\n")
     lines.append("| ID | Nguồn & Mã tin | Phân loại Chỗ khó | Dự đoán AI (Q / Topic / Urgency) | Kỳ vọng (Ground Truth) | Trạng thái |")
     lines.append("| :--- | :--- | :--- | :--- | :--- | :---: |")
 
