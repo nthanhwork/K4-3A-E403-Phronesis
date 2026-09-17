@@ -172,15 +172,21 @@
   | **Full Match (Khớp trọn vẹn 3 trường)** | **57.5%** (23/40) | $\ge 50.0\%$ | ✅ **ĐẠT** |
   | **Độ trễ trung bình (Latency)** | **1.60s** / request | $\le 3.0\text{s}$ | ✅ **ĐẠT** |
 
+- **Tự khai báo các hạng mục chưa kịp xử lý trong đợt chạy hiện tại (Self-declaration of Unfinished Items):**
+  1. *Hiệu chuẩn mức độ khẩn cấp (Urgency Calibration) mới đạt 60.0% (24/40 ca):* Dù đã đạt ngưỡng sàn cam kết ($\ge 60\%$), mô hình vẫn có xu hướng hạ mức ưu tiên từ `urgent` xuống `medium`/`low` đối với các câu hỏi học viên dùng ngôn từ lịch sự ("em chào anh", "nhờ anh chị hỗ trợ chút") dù vấn đề phát sinh ngay trước deadline hoặc sát giờ vào lớp. Nhóm đã xác định giải pháp bổ sung few-shot in-context learning ở Run 2 (CP5) để nâng tỷ lệ này lên $\ge 75\%$.
+  2. *Gom cụm câu hỏi giao thoa đa chủ đề (Multi-label Overlap):* Có 3 ca (TC03, TC04, TC33) liên quan đến deadline ghép nhóm bị mô hình phân loại vào `Logistics & Chuyên cần` thay vì `Khảo sát & Nhóm` do câu hỏi chứa cả mốc thời gian lẫn việc ghép đội. Hiện tại mô hình chỉ gán 1 nhãn duy nhất (single-label), chưa hỗ trợ cơ chế đa nhãn (multi-label tagging).
+  3. *Tự động hợp nhất tin nhắn phân mảnh ở Backend:* Tính năng nhóm các tin nhắn spam hoặc gửi rời rạc trong vòng 5 phút của cùng một học viên hiện mới được hiện thực hóa ở tầng giao diện Prototype, chưa xây dựng pipeline Redis sliding-window session trên server backend để gom nhóm tự động trước khi đẩy vào prompt LLM.
+  4. *Triển khai Bot Discord trực tiếp lên Gateway Production:* Hệ thống hiện hoạt động ổn định ở cấp độ **Working Prototype** (Web Prototype tương tác chuẩn giao diện Discord + Backend API Server Python kết nối trực tiếp OpenAI `gpt-4o-mini`). Việc triển khai bot chạy 24/7 trực tiếp trên máy chủ Discord chính thức của VinUni đòi hỏi phân quyền quản trị từ Ban tổ chức, do đó được xếp vào kế hoạch triển khai sau hackathon.
+
 ---
 
 ## §8. Phân công & Kế hoạch
 
 - **Phân công chi tiết:**
-  - **Nguyễn Thái Anh (2A202602810):** Thiết kế Spec (§1, §4, §6), xây dựng Sơ đồ luồng (`flow.md`) và lập trình bản Prototype tương tác (`codebase/prototype/index.html`).
-  - **Hoàng Ngọc Đăng Khoa (2A202602790):** Khảo sát người dùng, thu thập bằng chứng thực tế, phân tích dữ liệu khảo sát và viết phần Impact (§1, §2).
-  - **Ngọ Doãn Ngọc:** Xây dựng bộ dữ liệu kiểm thử Golden set (20 case) và thiết kế prompt phân loại / gom cụm cho CP3.
-  - **Đoàn Quang Minh:** Chạy kiểm thử đo lường đánh giá prompt, chuẩn bị kịch bản quay video demo CP3 và slide pitch CP5.
+  - **Nguyễn Thái Anh (2A202602810) — Lead Developer & System Architect:** Thiết kế Spec kỹ thuật (§1, §4, §6), xây dựng sơ đồ luồng `docs/flow.md`, phát triển Core AI Engine (`codebase/triage_engine.py`), Server live (`codebase/server.py`), kịch bản demo (`codebase/live_demo.py`) và quản trị Git.
+  - **Ngọ Doãn Ngọc (2A202602635) — Team Leader & Product Manager:** Điều phối tiến độ tổng thể, đại diện nhóm nộp Form các mốc CP1–CP5, thiết kế Prompt System cho Triage Hub, định nghĩa tiêu chí nghiệm thu và review chất lượng sản phẩm.
+  - **Hoàng Ngọc Đăng Khoa (2A202602790) — Data Analyst & Evaluation Specialist:** Khai phá dữ liệu chatlog `data/discord-pack/k4_messages.csv`, xây dựng bộ dữ liệu kiểm thử Golden Set 40 cases (§7), thực thi script đánh giá `eval/run_eval.py` và phân tích lỗi `eval/run_results.md`.
+  - **Đoàn Quang Minh (2A202602711) — Media Lead & UX Validation:** Phụ trách quay video demo 30s thực tế, kiểm thử trải nghiệm giao diện người dùng theo 5 nguyên tắc HAX/PAIR, xây dựng kịch bản trình chiếu slide demo CP5 và phản biện vòng CP6.
 - **Willing users (≥2 tên từ khảo sát thực tế):**
   1. *TA 1 (Timestamp 16/9 19:14:28):* Tồn đọng 6–10h, mất thời gian research & dò thủ công — Xác nhận sẵn sàng dùng thử.
   2. *TA 2 (Timestamp 16/9 19:16:20):* Mất 10p cuộn chuột, quá nhiều tin phải đọc hết — Xác nhận sẵn sàng dùng thử.
@@ -192,6 +198,10 @@
   - Phương án A: Xem theo dòng thời gian (FIFO Queue) — Tập trung giải cứu ca tồn lâu nhất.
   - Phương án B: Xem theo phân cụm chủ đề (Clustering) — Tập trung giải quyết dứt điểm các câu hỏi lặp lại.
   - ➔ Cả 2 phương án đã được tích hợp song song trong cùng 1 giao diện prototype để TA tùy chọn theo ngữ cảnh trực.
+- **Kế hoạch kiểm thử và tinh chỉnh thực tế (Thực hiện cho CP5):**
+  1. *Kế hoạch Prompt Iteration (Run 2):* Bổ sung 3 few-shot examples vào `SYSTEM_PROMPT` trong `codebase/triage_engine.py` để hướng dẫn mô hình nhận diện yếu tố khẩn cấp dựa trên tính chất công việc thay vì chỉ dựa vào từ khóa ngữ nghĩa bề mặt.
+  2. *Đo lường kiểm chứng lại:* Tái thực thi toàn bộ 40 test cases qua `eval/run_eval.py`, ghi nhận log và cập nhật bảng so sánh Run 1 vs Run 2 để chứng minh tính cải tiến liên tục trước Ban giám khảo.
+  3. *Đóng gói bài thuyết trình (Pitch Deck CP5):* Hoàn thiện 5 slide thuyết trình tập trung vào: Bằng chứng người dùng (Data mining 1.092 tin) ➔ Demo tương tác 30s ➔ Đo lường độ tin cậy AI với 40 cases ➔ Kế hoạch hoàn thiện.
 
 ---
 
@@ -202,5 +212,5 @@
 | 16/9 19:30 | Hoàn thành Canvas CP1 & thu thập khảo sát $n=10$ | Khóa mục tiêu bài toán Track B2 dựa trên nỗi đau thực tế của TA |
 | 16/9 20:30 | Tạo `docs/flow.md` và `codebase/prototype/index.html` | Thiết kế luồng 1-Click Jump và bản mock tương tác chuẩn Discord |
 | 16/9 20:45 | Thêm nút Reload và Limit 15 câu/popup | Tránh quá tải thông tin và hỗ trợ TA quét lại dữ liệu realtime |
-| 17/9 10:30 | Cập nhật toàn diện `spec.md` cho CP2 | Bổ sung chi tiết §4, §6, 4 nguyên tắc HAX/PAIR theo yêu cầu CP2 |
 | 17/9 19:45 | Chuẩn hóa số liệu khảo sát $n=10$ (16–17/9) | Đồng bộ kỷ lục tồn 24h, thời gian lội kênh 15–60p, 50% câu trùng, mở rộng 6 Willing Users |
+| 17/9 20:45 | Khóa Quality Bar CP4 & tự khai báo các khuyết điểm | Đóng băng ngưỡng chất lượng định lượng, bổ sung tự khai báo các phần chưa xong và kế hoạch cho CP5 |
