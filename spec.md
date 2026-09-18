@@ -214,3 +214,4 @@
 | 16/9 20:45 | Thêm nút Reload và Limit 15 câu/popup | Tránh quá tải thông tin và hỗ trợ TA quét lại dữ liệu realtime |
 | 17/9 19:45 | Chuẩn hóa số liệu khảo sát $n=10$ (16–17/9) | Đồng bộ kỷ lục tồn 24h, thời gian lội kênh 15–60p, 50% câu trùng, mở rộng 6 Willing Users |
 | 17/9 20:45 | Khóa Quality Bar CP4 & tự khai báo các khuyết điểm | Đóng băng ngưỡng chất lượng định lượng, bổ sung tự khai báo các phần chưa xong và kế hoạch cho CP5 |
+| 18/9 10:30 | Thử nghiệm người dùng ngoài nhóm ($n=5$) & Hoàn thành Bonus R6 | Kiểm thử usability với 5 học viên K4 (02706, 02782, 02903, 02682, 02728); cập nhật `validation/feedback_log.md`; sẽ cân nhắc tinh chỉnh thời gian highlight Jump Link, loading spinner và độ tương phản badge |
